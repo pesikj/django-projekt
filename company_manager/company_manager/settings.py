@@ -152,5 +152,9 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://murmuring-refuge-32594.herokuapp.com/"
+]
+
 import django_heroku
 django_heroku.settings(locals())
