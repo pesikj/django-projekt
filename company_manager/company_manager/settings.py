@@ -153,7 +153,7 @@ LANGUAGES = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://murmuring-refuge-32594.herokuapp.com/"
+    "https://murmuring-refuge-32594.herokuapp.com"
 ]
 
 import django_heroku
