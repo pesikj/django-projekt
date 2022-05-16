@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Opportunity list</h1>
+<ul>
+{% for item in object_list %}
+    <li>{{ item.company }}, {{ item.value}}</li>
+{% endfor %}
+</ul>
+{% endblock %}
