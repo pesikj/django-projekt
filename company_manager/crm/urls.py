@@ -10,4 +10,5 @@ urlpatterns = [
     path('opportunity/create', views.OpportunityCreateView.as_view(), name='opportunity_create'),
     path('opportunity/update/<int:pk>', views.OpportunityUpdateView.as_view(), name='opportunity_update'),
     path('employee/update', views.EmployeeUpdateView.as_view(), name='employee_update'),
+    path("register", views.RegisterView.as_view(), name="register")
 ]
