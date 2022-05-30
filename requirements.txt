@@ -3,3 +3,5 @@ python-decouple==3.6
 django-heroku
 django-crispy-forms
 crispy-bootstrap5
+djangorestframework
+requests

@@ -8,6 +8,8 @@ from crm.forms import EmployeeForm, UserForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext as _
 from crm.forms import RegisterUserForm, CompanyForm
+from crm.serializers import OpportunitySerializer, CompanySerializer
+from rest_framework import viewsets
 
 class IndexView(ListView):
     template_name = "index.html"
@@ -58,3 +60,12 @@ class RegisterView(CreateView):
     form_class = RegisterUserForm
     success_url = reverse_lazy("login")
     template_name = "registration/register.html"
+
+
+class OpportunityViewSet(viewsets.ModelViewSet):
+    queryset = models.Opportunity.objects.all()
+    serializer_class = OpportunitySerializer
+
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = models.Company.objects.all()
+    serializer_class = CompanySerializer
