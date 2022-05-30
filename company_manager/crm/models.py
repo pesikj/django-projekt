@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
+from ckeditor.fields import RichTextField
 
 class Address(models.Model):
     street = models.CharField(max_length=200, blank=True, null=True)
@@ -27,6 +28,7 @@ class Company(models.Model):
     email = models.CharField(max_length=50, null=True, blank=True)
     identification_number = models.CharField(max_length=100)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
+    notes = RichTextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -55,6 +57,8 @@ class Opportunity(models.Model):
     description = models.TextField(null=True, blank=True)
     status = models.CharField(max_length=2, default="1", choices=status_choices)
     value = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    created_on = models.DateTimeField(auto_now_add=True, null=True)
+    update_on = models.DateTimeField(auto_now=True, null=True)
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

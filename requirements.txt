@@ -5,3 +5,6 @@ django-crispy-forms
 crispy-bootstrap5
 djangorestframework
 requests
+django-ckeditor
+django-tables2
+django-filter

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, ButtonHolder, Submit
+from ckeditor.widgets import CKEditorWidget
 
 class UserForm(ModelForm):
     class Meta:
@@ -17,9 +18,11 @@ class EmployeeForm(ModelForm):
 
 
 class CompanyForm(ModelForm):
+    notes = CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Company
-        fields = ["name", "status", "identification_number", "email", "phone_number"]
+        fields = ["name", "status", "identification_number", "email", "phone_number", "notes"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -31,6 +34,7 @@ class CompanyForm(ModelForm):
                 Div("identification_number", css_class="col-2"),
                 Div("email", css_class="col-3"),
                 Div("phone_number", css_class="col-3"),
+                Div("notes", css_class="col-12"),
                 css_class="row"
             ),
             ButtonHolder(

@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "rest_framework",
+    "ckeditor",
+    "django_tables2",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -161,6 +164,11 @@ CSRF_TRUSTED_ORIGINS = [
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+STATIC_ROOT = "static/"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 import django_heroku
 django_heroku.settings(locals())

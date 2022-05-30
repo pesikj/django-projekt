@@ -10,6 +10,10 @@ from django.utils.translation import gettext as _
 from crm.forms import RegisterUserForm, CompanyForm
 from crm.serializers import OpportunitySerializer, CompanySerializer
 from rest_framework import viewsets
+from django_tables2 import SingleTableView, SingleTableMixin
+from django_filters.views import FilterView
+import crm.tables as tables
+import crm.filters as filters
 
 class IndexView(ListView):
     template_name = "index.html"
@@ -22,23 +26,34 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     # Translators: This message is shown after successful creation of a company
     success_message = _("Company created!")
 
-class CompanyListView(LoginRequiredMixin, ListView):
+class CompanyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = models.Company
+    template_name = "company/update_company.html"
+    form_class = CompanyForm
+    success_url = reverse_lazy("index")
+    success_message = "Company updated!"
+
+class CompanyListView(LoginRequiredMixin, SingleTableView):
     model = models.Company
     template_name = "company/list_company.html"
+    table_class = tables.CompanyTable
 
-class OpportunityListView(LoginRequiredMixin, ListView):
+class OpportunityListView(LoginRequiredMixin, SingleTableMixin, FilterView):
     model = models.Opportunity
+    table_class = tables.OpportunityTable
     template_name = "opportunity/list_opportunity.html"
+    filterset_class = filters.OpportunityFilter
 
-class OpportunityCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+
+class OpportunityCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'crm.add_opportunity'
     model = models.Opportunity
-    template_name = "company/create_company.html"
+    template_name = "opportunity/create_opportunity.html"
     fields = ["company", "sales_manager", "primary_contact", "description", "status"]
     success_url = reverse_lazy("index")
     success_message = "Opportunity created!"
 
-class OpportunityUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class OpportunityUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = models.Opportunity
     template_name = "opportunity/update_opportunity.html"
     fields = ["company", "primary_contact", "description", "status"]
