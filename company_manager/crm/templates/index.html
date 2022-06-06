@@ -15,6 +15,8 @@
 
           {% endfor %}
       </p>
+        <canvas id="graf"></canvas>
+        <canvas id="graf2"></canvas>
       {% load i18n %}
         <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
             <input name="next" type="hidden" value="{{ redirect_to }}">
@@ -33,4 +35,23 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function() {
+    var ctx = document.getElementById("graf2").getContext("2d");
+    var myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: [{% for row in qs %} "{{ row.status }}", {% endfor %} ],
+            datasets: [{
+                label: "Opportunity value",
+                data: [{% for row in qs %} {{ row.value }}, {% endfor %} ]
+            }]
+        }
+    });
+});
+</script>
 {% endblock %}
